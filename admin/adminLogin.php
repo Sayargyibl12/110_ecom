@@ -1,10 +1,30 @@
 <?php
+require_once "dbconnect.php";
 if(isset($_POST['login']))// $_POST is super global array
 {
     $email = $_POST['email']; // retrieve email value of user
     $password = $_POST['password']; // retrieve password of user
 
+    $sql = "select * from admin where email=?";
+    $stmt = $conn-> prepare($sql);
+    $stmt -> execute([$email]);
+    $adminInfo = $stmt -> fetch(); // single row returs
+    // $adminInfo['ID'], $adminInfo['email'], $adminInfo['password'], $adminInfo['remark'] 
     // echo "email is $email and password is $password";
+
+    if($adminInfo){// checks password and hash match 
+       if (password_verify($password, $password['password'])){
+        echo "login success!";
+
+       }else{// password and hash doesn't match 
+        $errorMessage = "Email or password might be incorrect!!";
+
+       }
+    } // if end
+    else{// admin's filled email does not exist
+        $errorMessage = "Email or password might be incorrect!!";
+
+    }
 }
 
 ?>
@@ -28,6 +48,12 @@ if(isset($_POST['login']))// $_POST is super global array
         <div class="row">
             <div class="col-md-6 mx-auto py-5">
                 <form action="<?php echo $_SERVER['PHP_SELF'] ;?>" method="post">
+                    <?php 
+                        if(isset($errorMessage)){
+                            echo "<p class = 'alert alert-danger'>$errorMessage </p>";
+                        }
+
+                    ?>
             <!-- <form action="adminLogin.php" method="post"> -->
                 <div class="mb-3">
                     <label for="" class="form-label">Email</label>
