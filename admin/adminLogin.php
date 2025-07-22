@@ -1,5 +1,11 @@
 <?php
-    
+if(isset($_POST['login']))// $_POST is super global array
+{
+    $email = $_POST['email']; // retrieve email value of user
+    $password = $_POST['password']; // retrieve password of user
+
+    // echo "email is $email and password is $password";
+}
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +27,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 mx-auto py-5">
-                <form action="php echo $" method="post">
+                <form action="<?php echo $_SERVER['PHP_SELF'] ;?>" method="post">
             <!-- <form action="adminLogin.php" method="post"> -->
                 <div class="mb-3">
                     <label for="" class="form-label">Email</label>
