@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 $dbname = "golden_city";
 // creating data source name
-$dsn = "mysql:host = $hostname; dbname=$dbname";
+$dsn = "mysql:host=$hostname;dbname=$dbname";
 try{
     $conn = new PDO($dsn, $username, $password); // $dsn, $user, $password
     $conn-> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
